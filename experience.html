@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expérience Helios — Laboratoire photonique</title>
+  <meta name="description" content="Expérience immersive Helios Astro : flux photoniques, mandala vivant et géométrie sacrée animée.">
+  <meta name="robots" content="index, follow">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/logo-heliosastro.png" alt="Logo Helios Astro">
+      <div><strong>Helios Astro</strong><span>Expérience immersive</span></div>
+    </a>
+    <button class="nav-toggle" type="button" data-nav-toggle>☰</button>
+    <nav class="site-nav" data-nav>
+      <a href="index.html">Accueil</a>
+      <a href="offres.html">Offres</a>
+      <a href="logiciel.html">Logiciel</a>
+      <a href="experience.html" class="active">Expérience</a>
+      <a href="livre.html">Livre</a>
+      <a href="chls9.html">CHLS9</a>
+      <a href="contact.html" class="btn btn-small">Commander</a>
+    </nav>
+  </div>
+</header>
+
+<main class="lab-full">
+  <div class="container">
+    <div class="section-title">
+      <p class="eyebrow">Laboratoire Helios</p>
+      <h1>Flux photonique vivant.</h1>
+      <p class="lead">
+        Une expérience séparée de l’accueil : spirales, arcs lumineux,
+        photons et géométrie sacrée en mouvement.
+      </p>
+    </div>
+
+    <div class="lab-box">
+      <canvas id="experience-canvas"></canvas>
+    </div>
+  </div>
+</main>
+
+<script src="assets/app.js"></script>
+<script>
+const canvas = document.getElementById("experience-canvas");
+const ctx = canvas.getContext("2d");
+let t = 0;
+
+function resize(){
+  canvas.width = canvas.offsetWidth;
+  canvas.height = 720;
+}
+resize();
+window.addEventListener("resize", resize);
+
+function glow(x,y,r,c){
+  const g = ctx.createRadialGradient(x,y,0,x,y,r);
+  g.addColorStop(0,c);
+  g.addColorStop(1,"rgba(0,0,0,0)");
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(x,y,r,0,Math.PI*2);
+  ctx.fill();
+}
+
+function draw(){
+  requestAnimationFrame(draw);
+  t += 0.012;
+
+  const w = canvas.width;
+  const h = canvas.height;
+  const cx = w/2;
+  const cy = h/2;
+  const R = Math.min(w,h)*0.39;
+
+  ctx.fillStyle = "rgba(0,0,0,.30)";
+  ctx.fillRect(0,0,w,h);
+
+  glow(cx,cy,R*1.4,"rgba(0,220,255,.06)");
+  glow(cx,cy,R*.75,"rgba(255,211,105,.05)");
+
+  for(let b=0;b<12;b++){
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    for(let i=0;i<=180;i++){
+      const p=i/180;
+      const a=b*Math.PI*2/12+p*Math.PI*3+Math.sin(p*Math.PI)*.5+t;
+      const r=R*p;
+      ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);
+    }
+    const hue=(b*30+t*60)%360;
+    ctx.strokeStyle=`hsla(${hue},100%,68%,.45)`;
+    ctx.lineWidth=2.2;
+    ctx.shadowBlur=16;
+    ctx.shadowColor=`hsla(${hue},100%,68%,.8)`;
+    ctx.stroke();
+    ctx.shadowBlur=0;
+  }
+
+  for(let i=0;i<220;i++){
+    const p=(t*.16+i*.017)%1;
+    const layer=i%12;
+    const a=layer*Math.PI*2/12+p*Math.PI*3.4+Math.sin(p*Math.PI)*.8;
+    const r=R*(.1+p*.9);
+    const x=cx+Math.cos(a)*r;
+    const y=cy+Math.sin(a)*r;
+    const hue=(180+layer*22+p*180)%360;
+    const s=1.2+Math.sin(p*Math.PI)*3.5;
+    glow(x,y,s*7,`hsla(${hue},100%,70%,.14)`);
+    ctx.fillStyle=`hsla(${hue},100%,78%,.85)`;
+    ctx.beginPath();
+    ctx.arc(x,y,s,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  glow(cx,cy,90,"rgba(255,255,255,.16)");
+  glow(cx,cy,36,"rgba(255,240,160,.72)");
+  ctx.fillStyle="#fff";
+  ctx.beginPath();
+  ctx.arc(cx,cy,7,0,Math.PI*2);
+  ctx.fill();
+}
+
+draw();
+</script>
+</body>
+</html>
