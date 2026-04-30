@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact — Helios Astro</title>
+  <meta name="description" content="Contactez Helios Astro pour commander un thème astral, un transit ou une révolution solaire.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body>
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo-heliosastro.png" alt="Logo Helios Astro">
+      <div>
+        <strong>Helios Astro</strong>
+        <span>Contact & commande</span>
+      </div>
+    </a>
+
+    <button class="nav-toggle" type="button" data-nav-toggle>☰</button>
+
+    <nav class="site-nav" data-nav>
+      <a href="index.html">Accueil</a>
+      <a href="offres.html">Offres</a>
+      <a href="logiciel.html">Logiciel</a>
+      <a href="livre.html">Livre</a>
+      <a href="chls9.html">CHLS9</a>
+      <a href="contact.html" class="active btn btn-small">Commander</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section page-hero">
+    <div class="container">
+      <p class="eyebrow">Commande</p>
+      <h1>Envoyer vos informations.</h1>
+      <p class="lead">
+        Après paiement, transmettez vos données de naissance pour préparer votre lecture.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="card content-card">
+        <h2>Informations utiles</h2>
+        <ul class="feature-list">
+          <li>Nom et prénom</li>
+          <li>Date de naissance</li>
+          <li>Heure de naissance</li>
+          <li>Ville et pays de naissance</li>
+          <li>Offre choisie</li>
+        </ul>
+      </div>
+
+      <form class="card contact-form" action="mailto:contact@heliosastro.fr" method="post" enctype="text/plain">
+        <label>
+          Nom
+          <input type="text" name="Nom" required>
+        </label>
+
+        <label>
+          Email
+          <input type="email" name="Email" required>
+        </label>
+
+        <label>
+          Offre choisie
+          <select name="Offre">
+            <option>Thème astral</option>
+            <option>Transit 3 mois</option>
+            <option>Révolution solaire</option>
+            <option>Question CHLS9</option>
+          </select>
+        </label>
+
+        <label>
+          Message
+          <textarea name="Message" rows="8" required></textarea>
+        </label>
+
+        <button class="btn" type="submit">Envoyer</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-wrap">
+    <p>© <span data-year></span> Helios Astro — Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
